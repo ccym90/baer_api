@@ -7,9 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 
-var index = require('./routes/index');
-var users = require('./routes/users')(app, passport);
-
+// Init express
 var app = express();
 
 //connect with Mongodb
@@ -33,6 +31,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'hongkong'}));
 app.use(passport.initialize());
 app.use(passport.session());
+
+// import routes
+var index = require('./routes/index');
+var users = require('./routes/users');//(app, passport);
 
 // Setup local strategy
 require('./passport/local')(passport);

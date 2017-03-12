@@ -12,7 +12,7 @@ var userSchema = mongoose.Schema({
 		refreshToken: String,
 		id: String,
 		profile: mongoose.Schema.Types.Mixed
-	// },
+	 },
 
 	// instagram: {
 	// 	token: String,
