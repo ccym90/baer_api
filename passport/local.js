@@ -2,7 +2,7 @@ var localStrategy = require('passport-local').Strategy;
 var User = require( '../models/user');
 var validator = require('validator');
 
-module.exports = function( passport ){
+module.exports = function(passport){
 
 	// Serialize functions
 	passport.serializeUser(function(user, done) {
@@ -34,7 +34,7 @@ module.exports = function( passport ){
           }
 
           User.findOne( {'email' : email }, function(err, user){
-
+            console.log('ARE YOU GETTING AN EMAIL??');
             if(err){
               console.log("localStrategy: There was an error in the database call", err);
               return done(err);
@@ -42,19 +42,22 @@ module.exports = function( passport ){
 
             if(!user){ // We did not find a user in the DB
               console.log("localStrategy: Create user");
+              
+               // Create user
 
-              // Create user
               var user = new User();
               user.email = email;
               user.password = password;
               user.save(function(err, user){
                 var isCreatedUser = true;
                 return done(null,user);
+                console.log('MADE NEW USER!!');
               });
             } else { // We did  find a user in the DB
 
-              if( !user.validPassword(password, function(err, isMatch){
+              if(!user.validPassword(password, function(err, isMatch){
                 console.log("localStrategy: Check users password");
+                return done(null, false, req.flash('loginMessage', 'Opps! Wrong Password'));
 
                 if(isMatch){
                    console.log("localStrategy: password is correct");
