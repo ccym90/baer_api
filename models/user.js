@@ -3,7 +3,7 @@ var bcrypt = require('bcrypt-nodejs');
 
 
 var userSchema = mongoose.Schema({
-	name		: {type: String},
+	 
 	email 		: {type: String, unique: true, required: true},
 	password 	: {type: String},
 
@@ -17,11 +17,13 @@ var userSchema = mongoose.Schema({
 	instagram: {
 		accessToken: String,
 		refreshToken: String,
-		id: String,
+		username: String,
 		profile: mongoose.Schema.Types.Mixed
 	},
 		
 	google: {
+		email : String,
+		name : String,
 	 	accessToken: String,
 	 	refreshToken: String,
 	 	id: String,
@@ -58,6 +60,7 @@ userSchema.pre('save', function(next){
 userSchema.methods.validPassword = function (candidatePassword, cb) {
     bcrypt.compare(candidatePassword, this.password, function(err, isMatch){
         cb(err, isMatch);
+        return(done);
     });
 };
 

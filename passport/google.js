@@ -1,18 +1,9 @@
-var googleStrategy = require( 'passport-google-oauth2' ).Strategy;
+var googleStrategy = require('passport-google-oauth2').Strategy;
  
 
-var appid ='1083872056995-duc0r1tdcee8okcr5gcgcn1o68ivl1md.apps.googleusercontent.com';
-var appSecret= 'WDxQSDAGJ8YWN-JIMID4hDgB';
+var appid ='853707057469-q17q3q0kugo6drfb3bu246t6ttoao4ov.apps.googleusercontent.com';
+var appSecret= 'B7iJVowjTTy84DGimMrYUEDH';
 var callback= "http://localhost:3000/auth/google/callback"
-
-//     passReqToCallback   : true
-//    },
-//    function(request, accessToken, refreshToken, profile, done) {
-//     User.findOrCreate({ googleId: profile.id }, function (err, user) {
-//       return done(err, user);
-//     });
-//   }
-// ));
 
 var User = require('../models/user')  //check obtaining the correct thing
 
@@ -22,16 +13,16 @@ module.exports = function (passport) {
       clientID: appid,
       clientSecret: appSecret,
       callbackURL: callback,
-      profileFields: ['id', 'emails', 'name', 'photos', 'link', 'gender']   //these are the feilds we want to take from the API (check regularly as FB changes settings)
+      profileFields: ['profile', 'email']   //these are the feilds we want to take from the API (check regularly as FB changes settings)
 
   },
-  function(request, accessToken, refreshToken, profile, done) {  //creating the new user to store in MongoDB
+  function(accessToken, refreshToken, profile, done) {  //creating the new user to store in MongoDB
 
-    
+    console.log(profile);
 
     process.nextTick(function(){ //important to make asychronous if have busy site 
 
-      var email = profile.emails[0].value;
+      var email = profile.email;
       console.log("googleStrategy:", email);
 
           User.findOne( {'email' : email }, function(err, user){
@@ -45,10 +36,15 @@ module.exports = function (passport) {
               console.log("googleStrategy: Local user found - merging data");
               user.google.accessToken = accessToken;
               user.google.refreshToken = refreshToken;
-              user.google.id = profile.id;
               user.google.profile = profile;
               user.save(function(err, user){
-                  return done(null,user);
+
+              	    if(err){
+              			console.log("googleStrategy: error saving user", err);
+              			return done(err,false);
+              		}
+
+                  	return done(null,user);
                 });
 
             }else{
@@ -56,15 +52,20 @@ module.exports = function (passport) {
 
               // Create user
               var user = new User();
-              user.email = email;
+              user.email = profile.emails[0].value;
               user.password = "";
               user.google.accessToken = accessToken;
               user.google.refreshToken = refreshToken;
-              user.google.id = profile.id;
               user.google.profile = profile;
-                user.save(function(err, user){
+              user.save(function(err, user){
+              	if(err){
+              		console.log("googleStrategy: error saving new user", err);
+              		return done(err,false);
+              	}
+
+
                   return done(null,user);
-                });
+              });
             }
           });
         });

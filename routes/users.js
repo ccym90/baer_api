@@ -1,12 +1,3 @@
-var express = require('express');
-var router = express.Router();
-
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
-
-module.exports = router;
 module.exports = function(app, passport){
 
 
@@ -14,16 +5,13 @@ module.exports = function(app, passport){
 	app.post('/', passport.authenticate('local-login', {
 		successRedirect : '/homepage',
 		failureRedirect : '/error',
-		function(req, res) {
-			res.redirect('/')
-		}
 	}));
 
-	// logout
-	  app.get('/logout', function(req, res){
-	    req.logout();
-	    res.redirect('/');
-	  });
+	// // logout
+	//   app.get('/logout', function(req, res){
+	//     req.logout();
+	//     res.redirect('/');
+	//   });
 
 	// Secret
 	app.get('/homepage', function(req, res){
@@ -38,7 +26,7 @@ module.exports = function(app, passport){
 	/**
 	 *	Facebook
 	 */
-	app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email'})); //change scope: email to find the email from the FB json file, makes it accessible for me
+	app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'})); //change scope: email to find the email from the FB json file, makes it accessible for me
 	app.get('/auth/facebook/callback', passport.authenticate('facebook', {
 		successRedirect: '/homepage',
 		failureRedirect: '/error'
@@ -47,16 +35,16 @@ module.exports = function(app, passport){
 	/**
 	 *	Google+
 	 */
-	app.get('/auth/google', passport.authenticate('google')); 
+	app.get('/auth/google', passport.authenticate('google', {scope: 'email'})); 
 	app.get('/auth/google/callback', passport.authenticate('google', {
-		successRedirect:'/homgepage',
+		successRedirect:'/homepage',
 		failureRedirect:'/error'
 	}));
 
 	/**
 	 *	Instagram
 	 */
-	app.get('/auth/instagram', passport.authenticate('instagram')); 
+	app.get('/auth/instagram', passport.authenticate('instagram', { scope: 'basic'})); 
 	app.get('/auth/instagram/callback', passport.authenticate('instagram', {
 		successRedirect:'/homepage',
 		failureRedirect:'/error'

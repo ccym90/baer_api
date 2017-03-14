@@ -3,11 +3,12 @@ var facebookStrategy = require('passport-facebook').Strategy;
 
 var appid = '381054838941454';
 var appSecret = 'b1c1e01bd82b1c8ddaaa89da5ee75d4b';
-var callback = "http://localhost:3000/auth/facebook/callback"
+var callback = "http://localhost:3000/auth/facebook/callback";
 
-var User = require('../models/user')  //check obtaining the correct thing
+var User = require('../models/user');  //check obtaining the correct thing
 
 module.exports = function (passport) {
+
 
   passport.use("facebook", new facebookStrategy({
       clientID: appid,
@@ -64,6 +65,8 @@ module.exports = function (passport) {
               user.facebook.id = profile.id;
               user.facebook.profile = profile;
                 user.save(function(err, user){
+                  console.log('****************is this ERROR??', err);
+                  console.log(user);
                   return done(null,user);
                 });
             }

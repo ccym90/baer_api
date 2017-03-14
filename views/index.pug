@@ -1,6 +1,11 @@
 extends layout
 
 block content
+	
+	header
+	.col-md-8
+	.col-md-4
+		img(src='./images/lo.png')
 	.container
 	script#metamorph-1-start(type='text/x-placeholder').
 	script#metamorph-21-start(type='text/x-placeholder').
@@ -21,12 +26,10 @@ block content
 			small.text-muted Or sign in with your Baer account
 			br
 			br
-			input#ember360.ember-view.ember-text-field.form-control.login-input(placeholder='Email Address', type='text')
-			input#ember361.ember-view.ember-text-field.form-control.login-input-pass(placeholder='Password', type='password')
+		form(method='POST' action='/')
+			input#ember360.ember-view.ember-text-field.form-control.login-input(name='email', placeholder='Email Address', type='text')
+			input#ember361.ember-view.ember-text-field.form-control.login-input-pass(name='password', placeholder='Password', type='password')
 			script#metamorph-22-start(type='text/x-placeholder').
 			script#metamorph-22-end(type='text/x-placeholder').
-			button.btn.btn-lg.btn-primary.btn-block.btn-center(type='submit', data-bindattr-3='3') Sign in
+			button.btn.btn-lg.btn-primary.btn-block.btn-center(type='submit', data-bindattr-3='3') Sign in/Sign Up
 			br
-			small.create-account.text-muted
-				| Dont have a Baer or social network account? 
-				button#ember363.ember-view.btn.btn-sm.btn-default  Sign Up 

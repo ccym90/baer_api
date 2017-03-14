@@ -6,6 +6,7 @@ var session = require('express-session')
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
+var flash = require('connect-flash');
 
 // Init express
 var app = express();
@@ -28,13 +29,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Setup sessions
-app.use(session({ secret: 'hongkong'}));
+app.use(session({ secret: 'ilovecake'}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 // import routes
 var index = require('./routes/index');
-var users = require('./routes/users');//(app, passport);
+var users = require('./routes/users')(app, passport);
 
 // Setup local strategy
 require('./passport/local')(passport);
@@ -44,14 +46,13 @@ require('./passport/google')(passport);
 
 //import routes
 app.use('/', index);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
 
-var err = new Error('Not Found');
-err.status = 404;
-next(err);
+	var err = new Error('Not Found');
+	err.status = 404;
+	next(err);
 
 });
 
