@@ -42,8 +42,7 @@ module.exports = function(passport){
 
             if(!user){ // We did not find a user in the DB
               console.log("localStrategy: Create user");
-              //return done(null, false, req.flash('loginMessage', 'No user found!')); 
-
+              
                // Create user
 
               var user = new User();
