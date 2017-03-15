@@ -50,6 +50,7 @@ function success(pos){
     geocodeAddress(geocoder, map);
   });
   console.log(latLng);
+  console.log("we are here?????");
 }
 
 function getLocation(){
@@ -67,14 +68,8 @@ function initMap() {
         console.log("initMap()");
         getLocation();
 
-    map.addListener('click', function(e) {
-    placeMarkerAndPanTo(e.latLng, map);
-    
-  });
-
 }
 
-
-// $(function() {
-//   console.log("jQuery document ready");
-// });
+  $(function() {
+    console.log("jQuery document ready");
+});

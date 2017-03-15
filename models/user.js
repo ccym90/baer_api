@@ -3,8 +3,7 @@ var bcrypt = require('bcrypt-nodejs');
 
 
 var userSchema = mongoose.Schema({
-	 
-=======
+
 	name		: {type: String},
 	email 		: {type: String, unique: true, required: true},
 	password 	: {type: String},
@@ -31,6 +30,11 @@ var userSchema = mongoose.Schema({
 	 	id: String,
 	 	profile: mongoose.Schema.Types.Mixed
 	}
+
+	// googlemap: {
+	// 	coordiates: String,
+
+	// }
 
 },{
 	timestamps: true
