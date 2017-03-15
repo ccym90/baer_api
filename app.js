@@ -36,16 +36,13 @@ app.use(passport.session());
 app.use(flash());
 
 // import routes
-var index = require('./routes/index');
-var users = require('./routes/users')(app, passport);
 app.use(session({ secret: 'hongkong'}));
 app.use(passport.initialize());
 app.use(passport.session());
 
 // import routes
 var index = require('./routes/index');
-var users = require('./routes/users');//(app, passport);
-
+var users = require('./routes/users')(app, passport);
 // Setup local strategy
 require('./passport/local')(passport);
 require('./passport/facebook')(passport);
@@ -54,17 +51,6 @@ require('./passport/google')(passport);
 
 //import routes
 app.use('/', index);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-
-	var err = new Error('Not Found');
-	err.status = 404;
-	next(err);
-
-//import routes
-app.use('/', index);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

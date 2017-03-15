@@ -1,4 +1,6 @@
 var map = null;
+var currentLocation = null;
+
 
 function geocodeAddress( geocoder, map){
 
@@ -33,6 +35,7 @@ function error(err){
 
 function success(pos){
   var latLng = pos.coords;
+  currentLocation = latLng;
 
   map.setCenter({lat: latLng.latitude, lng: latLng.longitude});
   map.setZoom(3);
@@ -66,15 +69,17 @@ function initMap() {
 
         console.log("initMap()");
         getLocation();
-
-    map.addListener('click', function(e) {
-    placeMarkerAndPanTo(e.latLng, map);
-    
-  });
-
-}
+};
 
 
-// $(function() {
-//   console.log("jQuery document ready");
-// });
+
+$( document ).ready(function() {
+    console.log( "ready!" );
+
+    $("#checkout").on('click', function(e){
+        console.log(currentLocation);
+    });
+});
+
+
+
