@@ -1,7 +1,8 @@
 doctype html
 html
-  head
-    title Passport AUTH 
+
+head
+    title Baer API Project
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='stylesheet', href='/stylesheets/style.css')
     // Bootstrap core CSS
@@ -15,14 +16,16 @@ html
     script(src='http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js')
     script(src="https://apis.google.com/js/platform.js" async defer)
     meta(name="google-signin-client_id" content="853707057469-ncr1calrtqigrt6micg0ig2l61sflrul.apps.googleusercontent.com")
-  body
+body
+    block content
+    //- div.container-fluid
 
-    div.container
-      block content
 
+    block scripts
     // jQuery (necessary for Bootstrap's JavaScript plugins)
     script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js')
     // Include all compiled plugins (below), or include individual files as needed
     script(src='http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js')
 
-    block scripts
+    //include the main scripts
+    script(src='/js/map.js')

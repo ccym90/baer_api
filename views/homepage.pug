@@ -1,4 +1,36 @@
 extends layout
 
 block content
-	h1 Hey There you are now logged in...
+	header
+	h1 Welcome to our shop
+	.row#homelogo
+	img(src='./images/lo.png')
+	.row#cart
+	img(src='./images/cd-icon-cart.svg')
+	button#checkout.btn.btn-success(type='button') Checkout!
+	.wrapper
+		.container-fluid
+			.row
+				.col-md-8#shop
+					.row
+						.col-md-4
+							img(src='./images/product1.jpg')
+							button#add.btn.btn-primary(type='submit') Add to Basket
+						.col-md-4
+							img(src='./images/product2.jpg')
+							button#add.btn.btn-primary(type='submit') Add to Basket
+						.col-md-4
+							img(src='./images/product3.jpg')
+							button#add.btn.btn-primary(type='submit') Add to Basket
+	.wrapper
+		.container-fluid
+		.col-md4#map
+				h4 Browse the globe to see where our sunnies have landed!
+				form.form-inline
+					.form-group
+						label(for='location')=Location
+						input#location.form-control(type='text', placeholder='Search for a location')
+						button#geocode.btn.btn-default(type='submit') Wander
+block scripts
+	script(src='/js/map.js')
+	script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&callback=initMap')
