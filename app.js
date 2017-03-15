@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var flash = require('connect-flash');
 
+
 // Init express
 var app = express();
 
@@ -37,6 +38,13 @@ app.use(flash());
 // import routes
 var index = require('./routes/index');
 var users = require('./routes/users')(app, passport);
+app.use(session({ secret: 'hongkong'}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// import routes
+var index = require('./routes/index');
+var users = require('./routes/users');//(app, passport);
 
 // Setup local strategy
 require('./passport/local')(passport);
@@ -54,6 +62,15 @@ app.use(function(req, res, next) {
 	err.status = 404;
 	next(err);
 
+//import routes
+app.use('/', index);
+app.use('/users', users);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 // error handler

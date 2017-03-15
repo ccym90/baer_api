@@ -67,6 +67,11 @@ function initMap() {
         console.log("initMap()");
         getLocation();
 
+    map.addListener('click', function(e) {
+    placeMarkerAndPanTo(e.latLng, map);
+    
+  });
+
 }
 
 
