@@ -49,5 +49,6 @@ module.exports = function(app, passport){
 		successRedirect:'/homepage',
 		failureRedirect:'/error'
 	}));
+
 } 
 

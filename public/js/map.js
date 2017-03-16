@@ -1,4 +1,6 @@
 var map = null;
+var currentLocation = null;
+
 
 function geocodeAddress( geocoder, map){
 
@@ -33,6 +35,7 @@ function error(err){
 
 function success(pos){
   var latLng = pos.coords;
+  currentLocation = latLng;
 
   map.setCenter({lat: latLng.latitude, lng: latLng.longitude});
   map.setZoom(3);
@@ -134,7 +137,8 @@ function initMap() {
 
         console.log("initMap()");
         getLocation();
-}
+
+  };
 
 $(function() {
     console.log("jQuery document ready");
