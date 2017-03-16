@@ -16,7 +16,7 @@ $('#shop').on('click', 'button.add', function(event){
 
 // checkout sotres location in database 
 
-$('#cart').on('click', 'button.checkout', function(event){
+$('#checkout').on('click', 'button.checkout', function(event){
 	console.log("Checkout button clicked")
 })
 

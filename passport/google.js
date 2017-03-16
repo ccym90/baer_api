@@ -1,3 +1,5 @@
+/*********************************************  preparing the information to store into mongo******************************************/
+
 var googleStrategy = require('passport-google-oauth2').Strategy;
  
 
@@ -13,14 +15,14 @@ module.exports = function (passport) {
       clientID: appid,
       clientSecret: appSecret,
       callbackURL: callback,
-      profileFields: ['profile', 'email']   //these are the feilds we want to take from the API (check regularly as FB changes settings)
+      profileFields: ['profile', 'email']
 
   },
-  function(accessToken, refreshToken, profile, done) {  //creating the new user to store in MongoDB
+  function(accessToken, refreshToken, profile, done) {  
 
     console.log(profile);
 
-    process.nextTick(function(){ //important to make asychronous if have busy site 
+    process.nextTick(function(){ 
 
       var email = profile.email;
       console.log("googleStrategy:", email);

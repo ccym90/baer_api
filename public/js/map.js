@@ -45,17 +45,84 @@ function success(pos){
 
   var geocoder = new google.maps.Geocoder();
 
-  $('#geocode').click(function(e){
+  $('#checkout').click(function(e){
     e.preventDefault();
     geocodeAddress(geocoder, map);
-  });
-  console.log(latLng);
-  console.log("we are here?????");
+    console.log(latLng);
+    console.log("we are here?????");
+
+
+    $.ajax({
+        url: "/location",
+        method: "POST",
+        data: latLng,
+      })
+      .fail(function() {
+            console.log("error getting coordinates");
+      })
+      .done(function( data ) {
+                console.log("coordinates saved", data);
+      });
+      
+    });
+
 }
+  
+
+    // $.ajax({
+    //     url:"/homepage"
+    //     method: "POST", 
+    //     data: coordinates,    
+    //     })
+    //     .fail(function() {
+    //         console.log("error getting coordinates");
+    //     })
+    //     .done(function( data ) {
+    //             console.log( "coordinates saved" );
+    //     });
+    //     console.log('input', coordinates);
+
+    // })
+    
+
+    /*
+    *   AJAX WRAPPER
+    */
+
+    function getCoor(url, method, data, cb){
+
+        var returnedData = {}
+        var error = undefined;
+
+        $.ajax({
+            url: url,
+            data: data,
+            type: method, 
+            dataType: "json"
+        })
+
+        .done(function(xhr, status, err){
+            console.log("Error");
+            console.log(err);
+            console.log("Status", status);
+            console.log("xhr", xhr);
+            error = err;
+
+        })
+        .always(function(xhe, status){
+            cb(error, returnedData);
+        });
+    }
+
+    function getCoor(){
+
+    };
 
 function getLocation(){
   navigator.geolocation.getCurrentPosition(success, error, option);
 }
+
+
 
 function initMap() {
 
@@ -67,9 +134,9 @@ function initMap() {
 
         console.log("initMap()");
         getLocation();
-
 }
 
-  $(function() {
+$(function() {
     console.log("jQuery document ready");
 });
+

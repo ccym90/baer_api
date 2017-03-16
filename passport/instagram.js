@@ -1,4 +1,6 @@
-var instagramStrategy = require('passport-instagram').Strategy;
+/*********************************************  preparing the information to store into mongo******************************************/
+
+var instagramStrategy = require('passport-instagram').Strategy; 
 
 
 var appid = '8394105772fd4ba18d27fcd78fd228df';
@@ -22,7 +24,6 @@ module.exports = function (passport) {
       console.log(profile);
 		  var username = profile.username;
 		  console.log("instagramStrategy:", username);
-      console.log("are you gettting to here!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
           User.findOne( {'username' : username }, function(err, user){
 
@@ -48,7 +49,7 @@ module.exports = function (passport) {
               var user = new User();
               user.username = username;
               user.password = "";
-              user.email = "notfound@instagram.com";
+              user.email = "notfound@instagram.com";        //given a default email address, bc cant pull form basic insta data
               user.instagram.accessToken = accessToken;
             	user.instagram.refreshToken = refreshToken;
             	user.instagram.id = profile.id;

@@ -1,3 +1,5 @@
+/*********************************************  preparing the information to store into mongo******************************************/
+
 var localStrategy = require('passport-local').Strategy;
 var User = require( '../models/user');
 var validator = require('validator');
@@ -5,12 +7,12 @@ var validator = require('validator');
 module.exports = function(passport){
 
 	// Serialize functions
-	passport.serializeUser(function(user, done) {
+	passport.serializeUser(function(user, done) {  //determines which data of the user object should be stored in the session
 	  done(null, user.id);
     console.log("serialised user");
 	});
 
-	passport.deserializeUser(function(id, done) {
+	passport.deserializeUser(function(id, done) {  //enables us to load additional user information on every request
 	  User.findById(id, function(err, user) {
 	    done(err, user);
       console.log("deserialised user");
@@ -34,7 +36,7 @@ module.exports = function(passport){
           }
 
           User.findOne( {'email' : email }, function(err, user){
-            console.log('ARE YOU GETTING AN EMAIL??');
+
             if(err){
               console.log("localStrategy: There was an error in the database call", err);
               return done(err);
@@ -51,7 +53,6 @@ module.exports = function(passport){
               user.save(function(err, user){
                 var isCreatedUser = true;
                 return done(null,user);
-                console.log('MADE NEW USER!!');
               });
             } else { // We did  find a user in the DB
 

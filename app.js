@@ -47,6 +47,7 @@ require('./passport/google')(passport);
 
 //import routes
 app.use('/', index);
+app.use('/location', coor);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
