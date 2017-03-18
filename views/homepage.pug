@@ -1,38 +1,63 @@
 extends layout
 
 block content
-	header
-	h1 Welcome to our shop
-	.row#homelogo
-	img(src='./images/lo.png')
-	.row#cart
-	img(src='./images/cd-icon-cart.svg')
-	button#checkout.btn.btn-success(type='button') Checkout!
-	.wrapper
-		.container-fluid
-			.row
-				.col-md-8#shop
-					.row
-						.col-md-4
-							img(src='./images/product1.jpg')
-							button#add.btn.btn-primary(type='submit') Add to Basket
-						.col-md-4
-							img(src='./images/product2.jpg')
-							button#add.btn.btn-primary(type='submit') Add to Basket
-						.col-md-4
-							img(src='./images/product3.jpg')
-							button#add.btn.btn-primary(type='submit') Add to Basket
-		.container
-		h4 Browse the globe to see where our sunnies have landed!
-			form.form-inline
-				.form-group
-				label(for='location')=Location
-				input#location.form-control(type='text', placeholder='Search for a location')
-				button#wander.btn.btn-default(type='submit') Wander
-				.col-md4#map
+  nav.navbar.navbar-default.navbar-fixed-top
+    .container-fluid
+      .navbar-header
+        a.navbar-brand(href='#') WebSiteName
+      ul.nav.navbar-nav
+        li.active
+          a(href='#') Home
+        li
+          a(href='#') Page 1
+        li
+          a(href='#') Page 2
+      ul.nav.navbar-nav.navbar-right
+        li
+          a(href='#')
+            span.glyphicon.glyphicon-user
+            |  Sign Up
+        li
+          a(href='#')
+            span.glyphicon.glyphicon-log-in
+            |  Login
+  .container-fluid(style='background-color:red; height:300px; margin-top:100px;')
+    .row(style='background-color:blue; height:100px;')
+      .col-xs-6(style='background-color:yellow; height:50px;')
+      .col-xs-6(style='background-color:orange; height:50px;')
+
+  //- h1 Welcome to our shop
+  //- .row#homelogo
+  //- img(src='./images/lo.png')
+  //- hr
+  //- .row#cart
+  //- img(src='./images/cd-icon-cart.svg')
+  //- button#checkout.btn.btn-success(type='button') Checkout!
+  //- .wrapper
+  //-   .container-fluid
+  //-     .row
+  //-       .col-md-8#shop
+  //-         .row
+  //-           .col-md-4
+  //-             img(src='./images/product1.jpg')
+  //-             button#add.btn.btn-primary(type='submit') Add to Basket
+  //-           .col-md-4
+  //-             img(src='./images/product2.jpg')
+  //-             button#add.btn.btn-primary(type='submit') Add to Basket
+  //-           .col-md-4
+  //-             img(src='./images/product3.jpg')
+  //-             button#add.btn.btn-primary(type='submit') Add to Basket
+  //-   .container
+  //-   h4 Browse the globe to see where our sunnies have landed!
+  //-     form.form-inline
+  //-       .form-group
+  //-       label(for='location')=Location
+  //-       input#location.form-control(type='text', placeholder='Search for a location')
+  //-       button#wander.btn.btn-default(type='submit') Wander
+  //-       .col-md4#map
 block scripts
-	script(src='/js/map.js')
-	script(src='../js/markerclusterer.js')
-	script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&callback=initMap')
-	script(src='https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js')
-	script(type='text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&libraries=places')
+  script(src='/js/map.js')
+  script(src='../js/markerclusterer.js')
+  script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&callback=initMap')
+  script(src='https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js')
+  script(type='text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&libraries=places')

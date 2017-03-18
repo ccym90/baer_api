@@ -13,28 +13,31 @@ var app = express();
 
 //connect with Mongodb
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/27017/baer');
+mongoose.connect('mongodb://localhost/27017/');
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
+// view engine setup - needs a function 
+app.set('views', path.join(__dirname, 'views')); //dir name current directory root of project, absolute path of proj dir + views
 app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(logger('dev')); //logger sensitivity set to development 
+app.use(bodyParser.json()); //can pass through body if is json file 
+app.use(bodyParser.urlencoded({ extended: false }));//used with form to interpret content
+app.use(cookieParser());//allows to read cookies
+app.use(express.static(path.join(__dirname, 'public'))); //trys to see if there is a route in public folder to match the file
 
 
 // Setup sessions
-app.use(session({ secret: 'ilovecake'}));
+app.use(session({ secret: 'ilovecake',
+					resave: false,
+					saveUninitialized: false
+				}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-// import routes
+// import routes initalises middleware to begin to use the routes
 var index = require('./routes/index');
 var users = require('./routes/users')(app, passport);
 var coor = require('./routes/location');
@@ -46,8 +49,8 @@ require('./passport/instagram')(passport);
 require('./passport/google')(passport);
 
 //import routes
-app.use('/', index);
-app.use('/location', coor);
+app.use('/', index); //gets the root of index
+app.use('/location', coor); //gets the root of /location 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -64,7 +67,7 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // render the error page - internal server errors
   res.status(err.status || 500);
   res.render('error');
 });
