@@ -1,3 +1,5 @@
+const Products = require('../models/sunglasses');
+
 module.exports = function(app, passport){
 
 
@@ -13,11 +15,33 @@ module.exports = function(app, passport){
 	//     res.redirect('/');
 	//   });
 
-	// Secret
-	app.get('/homepage', function(req, res){
-		res.render('homepage', {});
-	});
+	////////////////////////////////////////////////////
+	///////HOMEPAGE DATA ///////////////////////////////
+	
 
+
+	function findProductsNow (req,res,next){
+		console.log('initializing product retrieval')
+		Products.find(function(err,items){
+			if(err){
+				res.send(err);
+			};
+			req.products = items;
+			console.log(items);
+			next();
+		})
+	}
+
+	function renderProducts (req, res){
+		console.log('begin to render products function');
+		res.render('homepage', {
+			products: req.products
+		});
+	}
+
+
+	app.get('/homepage', findProductsNow, renderProducts);
+	//////////////////////////////////////////////////////
 		// Secret
 	app.get('/error', function(req, res){
 		res.send("404");

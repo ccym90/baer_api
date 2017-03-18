@@ -10,6 +10,7 @@ var flash = require('connect-flash');
 
 // Init express
 var app = express();
+module.exports = app;
 
 //connect with Mongodb
 var mongoose = require('mongoose');
@@ -29,7 +30,8 @@ app.use(express.static(path.join(__dirname, 'public'))); //trys to see if there 
 
 
 // Setup sessions
-app.use(session({ secret: 'ilovecake',
+app.use(session({ 	
+					secret: 'ilovecake',
 					resave: false,
 					saveUninitialized: false
 				}));
@@ -42,12 +44,13 @@ var index = require('./routes/index');
 var users = require('./routes/users')(app, passport);
 var coor = require('./routes/location');
 
+
+
 // Setup local strategy
 require('./passport/local')(passport);
 require('./passport/facebook')(passport);
 require('./passport/instagram')(passport);
 require('./passport/google')(passport);
-
 //import routes
 app.use('/', index); //gets the root of index
 app.use('/location', coor); //gets the root of /location 
@@ -71,5 +74,3 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-module.exports = app;

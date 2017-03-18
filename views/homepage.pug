@@ -4,28 +4,34 @@ block content
   nav.navbar.navbar-default.navbar-fixed-top
     .container-fluid
       .navbar-header
-        a.navbar-brand(href='#') WebSiteName
+        a.navbar-brand(href='#') Baer
       ul.nav.navbar-nav
         li.active
-          a(href='#') Home
+          a(href='#home') Home
         li
-          a(href='#') Page 1
+          a(href='#wander') Wander
         li
-          a(href='#') Page 2
+          a(href='#contactus') Contact Us
       ul.nav.navbar-nav.navbar-right
         li
-          a(href='#')
-            span.glyphicon.glyphicon-user
-            |  Sign Up
+          a(href='#basket')
+           span.glyphicon.glyphicon-shopping-cart
+              |  Basket
         li
-          a(href='#')
+          a(href='#logout')
             span.glyphicon.glyphicon-log-in
-            |  Login
-  .container-fluid(style='background-color:red; height:300px; margin-top:100px;')
-    .row(style='background-color:blue; height:100px;')
-      .col-xs-6(style='background-color:yellow; height:50px;')
-      .col-xs-6(style='background-color:orange; height:50px;')
-
+            |  Logout
+  .container(style='background-color:red; margin-top:100px;')
+    .row(style='background-color: yellow;')
+      each k in products
+        .col-xs-4
+          h3= k.name
+          h2= k.price
+          h4= k.description
+          img(src=k.image)
+          button.btn.btn-info(type='button') Add
+    hr        
+    .row#basket
   //- h1 Welcome to our shop
   //- .row#homelogo
   //- img(src='./images/lo.png')
@@ -58,6 +64,6 @@ block content
 block scripts
   script(src='/js/map.js')
   script(src='../js/markerclusterer.js')
-  script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&callback=initMap')
-  script(src='https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js')
-  script(type='text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&libraries=places')
+  //- script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&callback=initMap')
+  //- script(src='https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js')
+  //- script(type='text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&libraries=places')
