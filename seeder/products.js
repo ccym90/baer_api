@@ -7,7 +7,7 @@ mongoose.connect('mongodb://localhost/27017/');
 
 	var product = new Sunglasses();
     	product.name        = "Tokyo";
-    	product.description = "Slim lightweight Design";
+    	product.description = "Clear/Gold frame, with blue chrome mirror lenses";
       	product.price       = '$32';
       	product.image       = '../images/product1.jpg';
     	product.save(function(err, Product){

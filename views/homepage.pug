@@ -21,49 +21,42 @@ block content
           a(href='#logout')
             span.glyphicon.glyphicon-log-in
             |  Logout
-  .container(style='background-color:red; margin-top:100px;')
-    .row(style='background-color: yellow;')
+  .container(style='background-color:light yellow ; margin-top:30px;')
+    .row(style='background-color:red; margin-top:100px;')
       each k in products
         .col-xs-4
-          h3= k.name
-          h2= k.price
-          h4= k.description
-          img(src=k.image)
-          button.btn.btn-info(type='button') Add
+          .thumbnail
+            img(src=k.image)
+            .caption
+              h3= k.name
+              h4= k.price
+              p= k.description
+              #addbasket.btn.btn-primary.products(data-id=k, role='button') Add to Basket
     hr        
-    .row#basket
-  //- h1 Welcome to our shop
-  //- .row#homelogo
-  //- img(src='./images/lo.png')
-  //- hr
-  //- .row#cart
-  //- img(src='./images/cd-icon-cart.svg')
-  //- button#checkout.btn.btn-success(type='button') Checkout!
-  //- .wrapper
-  //-   .container-fluid
-  //-     .row
-  //-       .col-md-8#shop
-  //-         .row
-  //-           .col-md-4
-  //-             img(src='./images/product1.jpg')
-  //-             button#add.btn.btn-primary(type='submit') Add to Basket
-  //-           .col-md-4
-  //-             img(src='./images/product2.jpg')
-  //-             button#add.btn.btn-primary(type='submit') Add to Basket
-  //-           .col-md-4
-  //-             img(src='./images/product3.jpg')
-  //-             button#add.btn.btn-primary(type='submit') Add to Basket
-  //-   .container
-  //-   h4 Browse the globe to see where our sunnies have landed!
-  //-     form.form-inline
-  //-       .form-group
-  //-       label(for='location')=Location
-  //-       input#location.form-control(type='text', placeholder='Search for a location')
-  //-       button#wander.btn.btn-default(type='submit') Wander
-  //-       .col-md4#map
+    .row
+      h2 Basket
+      .col-xs-3#basket
+        br
+        button#checkout.btn.btn-success(type='button') Checkout!
+    hr
+    .row#explore
+      h2 Wander
+      h4 Browse the globe to see where our sunnies have landed!
+        form.form-inline
+          .form-group
+          label(for='location')=Location
+          input#location.form-control(type='text', placeholder='Search for a location')
+          button#wander.btn.btn-default(type='submit') Wander
+          .col-md4#map
+    hr
+    .row#contact
+      h2 Contact Us
+      h3 Please contact our team at 2345@09876@gmail.com for any enquiries 
+
 block scripts
   script(src='/js/map.js')
+  script(src='/js/shop.js')
   script(src='../js/markerclusterer.js')
-  //- script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&callback=initMap')
-  //- script(src='https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js')
-  //- script(type='text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&libraries=places')
+  script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&callback=initMap')
+  script(src='https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js')
+  script(type='text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&libraries=places')

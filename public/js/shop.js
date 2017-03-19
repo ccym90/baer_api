@@ -1,24 +1,31 @@
-// 
+// add item into basket > adds into cart
+$(document).ready(function() {
+    console.log("jQuery document ready");
+
+	$('.products').click(function(e){
+		 var target = e.target;
+		 console.log(target);
+		 console.log("add to basket clicked");
+
+		var item = $(target).parents(".thumbnail").clone()
+		console.log(item);
+		var buttonlessItem = $(item).find('#addbasket').remove().end();
+		console.log('have we lost you?', buttonlessItem);
+
+		buttonlessItem.appendTo(".col-xs-3");
+
+	
+	});
+});
 
 
 
-//add item into basket > adds into cart
-
-function (add) {
-
-$('#shop').on('click', 'button.add', function(event){
-	console.log("add button clicked")
-
-
-})
-
-}
 
 // checkout sotres location in database 
 
-$('#checkout').on('click', 'button.checkout', function(event){
-	console.log("Checkout button clicked")
-})
+// $('#checkout').on('click', function(event){
+// 	console.log("Checkout button clicked")
+// });
 
 
 // pulls data onto map
@@ -27,6 +34,3 @@ $('#checkout').on('click', 'button.checkout', function(event){
 
 
 //total cost 
-
-
-

@@ -1,17 +1,17 @@
 @import url(http://weloveiconfonts.com/api/?family=brandico|entypo|openwebicons|zocial);
 
 img {
-		vertical-align: middle;
-		height: 70%;
-		width: 70%;
-		align-content: center;
-		padding-right: 0;
+	vertical-align: middle;
+	height: 70%;
+	width: 70%;
+	align-content: center;
+	padding-right: 0;
 }
 
 header {
-	  height: 80px;
-	  position: relative;
-	  padding-top: 40px;
+	height: 80px;
+	position: relative;
+	padding-top: 40px;
 }
 
 /*********************************
@@ -49,13 +49,17 @@ img {
 }
 
 #map {
-		height: 400px;
-        width: 55%;
-        background-color: grey;
-        position: absolute;
+	height: 400px;
+    width: 55%;
+    background-color: grey;
+    position: absolute;
 
       }
 
+/*#checkout { 
+	visibility: hidden;
+
+	 }*/
 
 
 /*#floating-panel {
