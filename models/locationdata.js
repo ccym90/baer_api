@@ -4,8 +4,8 @@ var mongoose = require('mongoose');
 var userLocation = mongoose.Schema({
 
 	coordinate	: {
-		lat: String,
-		lng: String,
+		lat: Number,
+		lng: Number,
 	},
 
 },{

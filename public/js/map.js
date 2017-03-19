@@ -7,6 +7,7 @@
 /// ***user can see the cluster of maps of all the locations stored in mongodb
 ///
 ///
+
 var map = null;
 var currentLocation = null;
 
@@ -24,7 +25,8 @@ function geocodeAddress( geocoder, map){
       console.log(status);
     }
   });
-}
+};
+
 
 var option= {
   enableHighAccuracy: true,
@@ -32,9 +34,11 @@ var option= {
   maximumAge: 0
 };
 
+
 function error(err){
   console.log("err", err);
-}
+};
+
 
 function success(pos){
   var latLng = pos.coords;
@@ -59,8 +63,7 @@ function success(pos){
     console.log(latLng);
     console.log("we are here?????");
 
-
-    $.ajax({
+        $.ajax({
         url: "/location",
         method: "POST",
         data: latLng,
@@ -71,13 +74,14 @@ function success(pos){
       .done(function( data ) {
                 console.log("coordinates saved", data);
       });
-    })  
+    });   
+};    
 
-}    
 
 function getLocation(){
   navigator.geolocation.getCurrentPosition(success, error, option);
 }
+
 
 var wander = function(wander){
 
@@ -94,45 +98,51 @@ var wander = function(wander){
           } else {
             window.alert('We could not find the location you specified, try again.');
           }   
-        })
-  };
+        });
+    };
+};
 
-  $('#wander').click(function(e){
-    e.preventDefault();
-    wander();
-  });
+function initMap() {
 
-// function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+        });
 
-//         map = new google.maps.Map(document.getElementById('map'), {
-//           zoom: 4,
-//         });
+        console.log("initMap()");
+        getLocation();
 
-//         console.log("initMap()");
-//         getLocation();
+        var geocoder = new google.maps.Geocoder();
 
-//         // var labels = "ABCDE";
 
-//         // var markers = locations.map(function(location, i) {
-//         // return new google.maps.Marker({
-//         // position: location,
-//         // label: labels[i % labels.length]
-//         //   });
-//         // });
+    $.ajax({
+        url: "/postlocation",
+        method: "GET"
+      })
+      .fail(function() {
+            console.log("error getting coordinates");
+      })
+      .done(function( data ) {
+            console.log("coordinates saved ajax worked", data);
+              
+            
 
-        
-//         // var markerCluster = new MarkerClusterer(map, markers,
-//         //     {imagePath: './images/m'});
-//         // var locations = [
-//         // {lat: -31.563910, lng: 147.154312},
-//         // {lat: -33.718234, lng: 150.363181},
-//         // {lat: -33.727111, lng: 150.371124},
-//         // {lat: -33.848588, lng: 151.209834},
-//         // {lat: -33.851702, lng: 151.216968},
-//         // ]
-//   };
 
-// $(function() {
-//     console.log("jQuery document ready");
-// });
 
+              for (i in data) {
+                  geocoder.geocode({'location': data[i]}, function(results, status){
+                    if(status === google.maps.GeocoderStatus.OK){
+                      if(results[0]) {
+                        var marker = new google.maps.Marker({
+                          map: map,
+                          position: results[0].geometry.location
+                        });
+                      };
+                    };
+                  });
+                }
+              });
+            };
+
+$(function() {
+    console.log("jQuery document ready");
+});

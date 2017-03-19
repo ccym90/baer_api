@@ -43,7 +43,7 @@ app.use(flash());
 var index = require('./routes/index');
 var users = require('./routes/users')(app, passport);
 var coor = require('./routes/location');
-
+var postlocation = require('./routes/postlocation');
 
 
 // Setup local strategy
@@ -51,9 +51,11 @@ require('./passport/local')(passport);
 require('./passport/facebook')(passport);
 require('./passport/instagram')(passport);
 require('./passport/google')(passport);
+
 //import routes
 app.use('/', index); //gets the root of index
 app.use('/location', coor); //gets the root of /location 
+app.use('/postlocation', postlocation);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

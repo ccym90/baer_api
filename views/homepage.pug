@@ -46,17 +46,14 @@ block content
           .form-group
           label(for='location')=Location
           input#location.form-control(type='text', placeholder='Search for a location')
-          button#wander.btn.btn-default(type='submit') Wander
+          button#go.btn.btn-default(type='submit') Wander
           .col-md4#map
     hr
     .row#contact
       h2 Contact Us
       h3 Please contact our team at 2345@09876@gmail.com for any enquiries 
-
 block scripts
-  script(src='/js/map.js')
+
   script(src='/js/shop.js')
-  script(src='../js/markerclusterer.js')
-  script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&callback=initMap')
-  script(src='https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js')
-  script(type='text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&libraries=places')
+  script(src='/js/map.js')
+  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&callback=initMap')
