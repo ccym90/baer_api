@@ -12,13 +12,15 @@ $(document).ready(function() {
 		var buttonlessItem = $(item).find('#addbasket').remove().end();
 		console.log('have we lost you?', buttonlessItem);
 
-		buttonlessItem.appendTo(".col-xs-3");
+		buttonlessItem.appendTo('#itemsbrought');
 
 	
 	});
+
+
 });
 
-
+	$('.navbar').onePageNav();
 
 
 // checkout sotres location in database 

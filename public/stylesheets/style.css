@@ -21,9 +21,28 @@ html, body {
 	height: 100%;
 	width: 100%;
 	padding: 0;
-	margin: 0;
 }
 
+scroll {
+	position: relative;
+}
+#space {
+	text-align: right;
+
+}
+
+#homelogo {
+	padding-top:55px;
+	text-align: right;
+	vertical-align: middle;
+	align-content: center;
+	padding-right: 0;
+	height: 70%;
+	width: 70%;
+	position: relative;
+	padding-right: 0;
+	float: right;
+}
 #cart {
 	height: 20%
 	width: auto;
@@ -45,17 +64,37 @@ img {
 	height: 100%;
 	width: 60%;
 	margin: 0 auto;
-	background-color: blue
+	background-color: blue;
+	position: relative;
 }
 
 #map {
 	height: 400px;
-    width: 62%;
+    width: 100%;
     background-color: grey;
-    position: absolute;
+    position: relative;
 
       }
+#controls {
+	position: sabsolute;
+}
+#location {
+	position: relative;
 
+}
+
+#go {
+	position: relative;
+}
+
+.wrapper {
+	position: relative
+}
+
+#contactus {
+	display: inline-block;
+	position: relative;
+}
 /*#checkout { 
 	visibility: hidden;
 

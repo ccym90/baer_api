@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  nav.navbar.navbar-default.navbar-fixed-top
+  nav.navbar.navbar-inverse.navbar-fixed-top
     .container-fluid
       .navbar-header
         a.navbar-brand(href='#') Baer
@@ -21,8 +21,13 @@ block content
           a(href='#logout')
             span.glyphicon.glyphicon-log-in
             |  Logout
-  .container(style='background-color:light yellow ; margin-top:30px;')
-    .row(style='background-color:red; margin-top:100px;')
+  .row#space(style='background-color:blue; height: 200px')
+    .col-xs-3
+      img#homelogo(src='./images/lo.png')
+  
+  body(data-spy='scroll' data-target='.navbar' data-offset='5000')
+  .container(style='background-color:yellow ; margin-top:30px;')
+    .row#home(style='background-color:red; margin-top:100px;')
       each k in products
         .col-xs-4
           .thumbnail
@@ -34,26 +39,28 @@ block content
               #addbasket.btn.btn-primary.products(data-id=k, role='button') Add to Basket
     hr        
     .row
-      h2 Basket
-      .col-xs-3#basket
+      h2#basket Basket
+      .col-xs-3#itemsbrought
         br
         button#checkout.btn.btn-success(type='button') Checkout!
     hr
     .row#explore
-      h2 Wander
-      h4 Browse the globe to see where our sunnies have landed!
-        form.form-inline
+      h2#wander Wander
+      h4 Explore the globe to see where our sunnies have landed!
+        form#controls.form-inline
           .form-group
           label(for='location')=Location
-          input#location.form-control(type='text', placeholder='Search for a location')
+          input#location.form-control(type='text', options='bounds' placeholder='Search for a location')
           button#go.btn.btn-default(type='submit') Wander
           .col-md4#map
     hr
-    .row#contact
-      h2 Contact Us
-      h3 Please contact our team at 2345@09876@gmail.com for any enquiries 
+    .row-fluid
+        h2#contactus Contact Us
+        h3 Please contact our team at 2345@09876@gmail.com for any enquiries 
+    hr
 block scripts
 
   script(src='/js/shop.js')
   script(src='/js/map.js')
-  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&callback=initMap')
+  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&libraries=places&callback=initMap', async='', defer='')
+  script(src='/js/jquery.combinedScroll.js')
