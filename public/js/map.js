@@ -11,251 +11,123 @@
 
 var map = null;
 var currentLocation = null;
+var mc = null; 
 
 function geocodeAddress( geocoder, map){
 
-  var address = $('#location').val();
-  geocoder.geocode({'address': address}, function(results, status){
+	var address = $('#location').val();
+	geocoder.geocode({'address': address}, function(results, status){
+	
+	if (status === 'OK') {
+		
+		map.setCenter(results[0].geometry.location);
 
-    if(status === 'OK'){
-
-      console.log("im here");
-      map.setCenter(results[0].geometry.location);
-
-    }else{
-      console.log(status);
-    }
-  });
-};
+	} else {
+		console.log("didnt work", status)
+	} 
+	});
+}
 
 
 var option= {
-  enableHighAccuracy: true,
-  time: 5000,
-  maximumAge: 0
+	enableHighAccuracy: true,
+	time: 5000,
+	maximumAge: 0
 };
 
 
 function error(err){
-  console.log("err", err);
+	console.log("err", err);
 };
 
 
 function success(pos){
-  var latLng = pos.coords;
-  currentLocation = latLng;
+	var latLng = pos.coords;
+	currentLocation = latLng;
 
-  map.setCenter({lat: latLng.latitude, lng: latLng.longitude});
-  console.log("Im here!");
-  map.setZoom(15);
+	map.setCenter({lat: latLng.latitude, lng: latLng.longitude});
+	console.log("Im here!");
+	map.setZoom(15);
 
-  // var marker = new google.maps.Marker({
-  //   position: {lat: latLng.latitude, lng: latLng.longitude},
-  //   map: map,
-  //   animation: google.maps.Animation.DROP,
-  //   title: 'You are here!'
-  // })
+	// var marker = new google.maps.Marker({
+	//   position: {lat: latLng.latitude, lng: latLng.longitude},
+	//   map: map,
+	//   animation: google.maps.Animation.DROP,
+	//   title: 'You are here!'
+	// })
  
-  var geocoder = new google.maps.Geocoder();
+	var geocoder = new google.maps.Geocoder();
+	$('#go').click(function(e){
+		e.preventDefault();
+		geocodeAddress(geocoder, map);
 
-  $('#checkout').click(function(e){
-    e.preventDefault();
-    geocodeAddress(geocoder, map);
-    console.log(latLng);
-    console.log("we are here?????");
+	});
 
-        $.ajax({
-        url: "/location",
-        method: "POST",
-        data: latLng,
-      })
-      .fail(function() {
-            console.log("error getting coordinates");
-      })
-      .done(function( data ) {
-                console.log("coordinates saved in mongo", data);
-      });
-    });   
+	$('#checkout').click(function(e){
+		e.preventDefault();
+		alert("Thank you for your purchase!");
+		geocodeAddress(geocoder, map);
+		console.log(latLng);
+		console.log("we are here?????");
+
+		$.ajax({
+		url: "/location",
+		method: "POST",
+		data: latLng,
+		})
+		.fail(function() {
+				console.log("error getting coordinates");
+			})
+		.done(function( data ) {
+				console.log("coordinates saved in mongo", data);
+			});
+		});   
 };    
 
 
+
+
 function getLocation(){
-  navigator.geolocation.getCurrentPosition(success, error, option);
+	navigator.geolocation.getCurrentPosition(success, error, option);
 }
 
 
-var wander = function(wander){
-
-  var geocoder = new google.maps.Geocoder();
-  var address = $('#location').value;
-  if (address == '') {
-    window.alert('Please enter an area or address.');
-  }else {
-    geocoder.geocode({address: address},
-      function(results, status) {
-        if(status == google.maps.GeocoderStatus.OK) {
-          map.setCenter(results[0].geometry.location);
-          map.setZoom(15);
-          } else {
-            window.alert('We could not find the location you specified, try again.');
-          }   
-        });
-    };
-};
-
 function initMap() {
 
-        map = new google.maps.Map(document.getElementById('map'),{
-          center: new google.maps.LatLng(getLocation),
-          mapTypeId: google.maps.MapTypeId.HYBRID
-        });
+	map = new google.maps.Map(document.getElementById('map'),{
+		center: new google.maps.LatLng(getLocation),
+		mapTypeId: google.maps.MapTypeId.HYBRID
+	});
 
-        console.log("initMap()");
-        getLocation();
+	console.log("initMap()");
+	getLocation();
+	var geocoder = new google.maps.Geocoder();
 
-        var geocoder = new google.maps.Geocoder();
+
+$.ajax({
+	url: "/postlocation",
+	method: "GET"
+})
+.fail(function() {
+			console.log("error getting coordinates");
+})
+.done(function( data ) {
+	console.log("coordinates saved ajax worked", data);
+	data.forEach(function(location, index){ //run for each loop through the data stored i.e. cordinates so dont need geocode
+		var marker = new google.maps.Marker({
+			map: map,
+			position: location.coordinate //taking the location.coordinate position from database
+		});
+	});
+});
+	
+	var mcOptions = {gridSize: 50, maxZoom: 15};
+	mc = new MarkerClusterer(map, [], mcOptions);
+	console.log('THIS IS THE MC', mc);
+};
 
 
-    $.ajax({
-        url: "/postlocation",
-        method: "GET"
-      })
-      .fail(function() {
-            console.log("error getting coordinates");
-      })
-      .done(function( data ) {
-            console.log("coordinates saved ajax worked", data);
-              data.forEach(function(location, index){ //run for each loop through the data stored i.e. cordinates
-                  var marker = new google.maps.Marker({
-                          map: map,
-                          position: location.coordinate //taking the location.coordinate position from database
-                        });
-              });
-      });
-    };
 
 $(function() {
-    console.log("jQuery document ready");
+		console.log("jQuery document ready");
 });
-
-
-
-// var option= {
-//   enableHighAccuracy: true,
-//   time: 5000,
-//   maximumAge: 0
-// };
-
-
-// function error(err){
-//   console.log("err", err);
-// };
-
-
-// function success(pos){
-//   var latLng = pos.coords;
-//   currentLocation = latLng;
-
-//   map.setCenter({lat: latLng.latitude, lng: latLng.longitude});
-//   console.log("Im here!");
-//   map.setZoom(4);
-
- 
-//  var geocoder = new google.maps.Geocoder();
-
-//   $('#checkout').click(function(e){
-//     e.preventDefault();
-//     geocodeAddress(geocoder, map);
-//     console.log(latLng);
-//     console.log("we are here?????");
-
-//         $.ajax({
-//         url: "/location",
-//         method: "POST",
-//         data: latLng,
-//       })
-//       .fail(function() {
-//             console.log("error getting coordinates");
-//       })
-//       .done(function( data ) {
-//                 console.log("coordinates saved", data);
-//       });
-//     });   
-// };    
-
-
-// function getLocation(){
-//   navigator.geolocation.getCurrentPosition(success, error, option);
-// }
-
-
-// var wander = function(wander){
-
-//   var geocoder = new google.maps.Geocoder();
-//   var address = $('#location').value;
-//   if (address == '') {
-//     window.alert('Please enter an area or address.');
-//   }else {
-//     geocoder.geocode({address: address},
-//       function(results, status) {
-//         if(status == google.maps.GeocoderStatus.OK) {
-//           map.setCenter(results[0].geometry.location);
-//           map.setZoom(15);
-//           } else {
-//             window.alert('We could not find the location you specified, try again.');
-//           }   
-//         });
-//     };
-// };
-
-// function initMap() {
-
-//         map = new google.maps.Map(document.getElementById('map'), {
-//           zoom: 4,
-//         });
-
-//         console.log("initMap()");
-//         getLocation();
-
-//         var geocoder = new google.maps.Geocoder();
-
-
-//     $.ajax({
-//         url: "/postlocation",
-//         method: "GET"
-//       })
-//       .fail(function() {
-//             console.log("error getting coordinates");
-//       })
-//       .done(function( data ) {
-//                 console.log("coordinates saved ajax worked", data);
-//                 for (i in data) {
-//                   geocoder.geocode({'location': data[i]}, function(results, status){
-//                     if(status === google.maps.GeocoderStatus.OK){
-//                       if(results[0]) {
-//                         var marker = new google.maps.Marker({
-//                           map: map,
-//                           position: results[0].geometry.location
-//                         });
-//                       };
-//                     };
-//                   });
-//                 }
-//               });
-//             };
-
-
-// // function makeMarker = function(geocoder, map) {
-// //   var marker = new google.maps.Marker({
-// //     position: {lat: latLng.latitude, lng: latLng.longitude},
-// //     map: map,
-// //     animation: google.maps.Animation.DROP,
-// //     title: 'You are here!'
-// //   });
-
-  
-// }
-
-// $(function() {
-//     console.log("jQuery document ready");
-// });

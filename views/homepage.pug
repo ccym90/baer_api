@@ -51,7 +51,7 @@ block content
           .form-group
           label(for='location')=Location
           input#location.form-control(type='text', options='bounds' placeholder='Search for a location')
-          button#go.btn.btn-default(type='submit') Wander
+          button#go.btn.btn-default(type='text') Wander
           .col-md4#map
     hr
     .row-fluid
@@ -60,7 +60,8 @@ block content
     hr
 block scripts
 
+  script(src='/js/jquery.combinedScroll.js')
+  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&libraries=places&callback=initMap', async='', defer='')
+  script(src='/js/markerclusterer.js')
   script(src='/js/shop.js')
   script(src='/js/map.js')
-  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBqbAbuczv0m0tyCWWzQKRueFLylUpFn5U&libraries=places&callback=initMap', async='', defer='')
-  script(src='/js/jquery.combinedScroll.js')
