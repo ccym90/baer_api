@@ -49,7 +49,7 @@ function success(pos){
 
 	map.setCenter({lat: latLng.latitude, lng: latLng.longitude});
 	console.log("Im here!");
-	map.setZoom(15);
+	map.setZoom(4);
 
 	var marker = new google.maps.Marker({
 	  position: {lat: latLng.latitude, lng: latLng.longitude},
