@@ -1,12 +1,3 @@
-/// Functions of map
-///
-/// ***on checkout event listener click - saves user co-ordinates into mongodb
-/// 
-/// ***on wander click span to location entered into autocomplete - find entered 
-///
-/// ***user can see the cluster of maps of all the locations stored in mongodb
-///
-///
 
 /// Functions of map
 ///
@@ -58,12 +49,12 @@ function success(pos){
   console.log("Im here!");
   map.setZoom(4);
 
-  var marker = new google.maps.Marker({
-    position: {lat: latLng.latitude, lng: latLng.longitude},
-    map: map,
-    animation: google.maps.Animation.DROP,
-    title: 'You are here!'
-  });
+  // var marker = new google.maps.Marker({
+  //   position: {lat: latLng.latitude, lng: latLng.longitude},
+  //   map: map,
+  //   animation: google.maps.Animation.DROP,
+  //   title: 'You are here!'
+  // });
  
   var geocoder = new google.maps.Geocoder();
 

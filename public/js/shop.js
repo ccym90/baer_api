@@ -17,10 +17,10 @@ $(document).ready(function() {
 	
 	});
 
+	$('.navbar').onePageNav();
+
 
 });
-
-	$('.navbar').onePageNav();
 
 
 // checkout sotres location in database 
