@@ -47,14 +47,14 @@ function success(pos){
 
   map.setCenter({lat: latLng.latitude, lng: latLng.longitude});
   console.log("Im here!");
-  map.setZoom(4);
+  map.setZoom(15);
 
   // var marker = new google.maps.Marker({
   //   position: {lat: latLng.latitude, lng: latLng.longitude},
   //   map: map,
   //   animation: google.maps.Animation.DROP,
   //   title: 'You are here!'
-  // });
+  // })
  
   var geocoder = new google.maps.Geocoder();
 
@@ -73,7 +73,7 @@ function success(pos){
             console.log("error getting coordinates");
       })
       .done(function( data ) {
-                console.log("coordinates saved", data);
+                console.log("coordinates saved in mongo", data);
       });
     });   
 };    
@@ -105,8 +105,9 @@ var wander = function(wander){
 
 function initMap() {
 
-        map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
+        map = new google.maps.Map(document.getElementById('map'),{
+          center: new google.maps.LatLng(getLocation),
+          mapTypeId: google.maps.MapTypeId.HYBRID
         });
 
         console.log("initMap()");
@@ -124,48 +125,19 @@ function initMap() {
       })
       .done(function( data ) {
             console.log("coordinates saved ajax worked", data);
-              
-            
-
-
-
-              for (i in data) {
-                  geocoder.geocode({'location': data[i]}, function(results, status){
-                    if(status === google.maps.GeocoderStatus.OK){
-                      if(results[0]) {
-                        var marker = new google.maps.Marker({
+              data.forEach(function(location, index){ //run for each loop through the data stored i.e. cordinates
+                  var marker = new google.maps.Marker({
                           map: map,
-                          position: results[0].geometry.location
+                          position: location.coordinate //taking the location.coordinate position from database
                         });
-                      };
-                    };
-                  });
-                }
               });
-            };
+      });
+    };
 
 $(function() {
     console.log("jQuery document ready");
 });
 
-// var map = null;
-// var currentLocation = null;
-
-// function geocodeAddress( geocoder, map){
-
-//   var address = $('#location').val();
-//   geocoder.geocode({'address': address}, function(results, status){
-
-//     if(status === 'OK'){
-
-//       console.log("im here");
-//       map.setCenter(results[0].geometry.location);
-
-//     }else{
-//       console.log(status);
-//     }
-//   });
-// };
 
 
 // var option= {

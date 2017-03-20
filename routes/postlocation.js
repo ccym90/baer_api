@@ -7,7 +7,7 @@ var Location = require('../models/locationdata');
 
 router.get('/', function(req, res, next){
 
-  Location.distinct(('coordinate'),
+  Location.find(('coordinate'),
     function(error, place){
       if(error) {
         console.log(error);
