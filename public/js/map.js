@@ -9,9 +9,11 @@
 ///
 ///
 
-var map = null;
-var currentLocation = null;
-var mc = null; 
+var map;
+var currentLocation;
+var mc; 
+var marker;
+var markers = [];
 
 function geocodeAddress( geocoder, map){
 
@@ -49,12 +51,12 @@ function success(pos){
 	console.log("Im here!");
 	map.setZoom(15);
 
-	// var marker = new google.maps.Marker({
-	//   position: {lat: latLng.latitude, lng: latLng.longitude},
-	//   map: map,
-	//   animation: google.maps.Animation.DROP,
-	//   title: 'You are here!'
-	// })
+	var marker = new google.maps.Marker({
+	  position: {lat: latLng.latitude, lng: latLng.longitude},
+	  map: map,
+	  animation: google.maps.Animation.DROP,
+	  title: 'You are here!'
+	})
  
 	var geocoder = new google.maps.Geocoder();
 	$('#go').click(function(e){
@@ -84,13 +86,9 @@ function success(pos){
 		});   
 };    
 
-
-
-
 function getLocation(){
 	navigator.geolocation.getCurrentPosition(success, error, option);
 }
-
 
 function initMap() {
 
@@ -103,30 +101,34 @@ function initMap() {
 	getLocation();
 	var geocoder = new google.maps.Geocoder();
 
-
-$.ajax({
-	url: "/postlocation",
-	method: "GET"
-})
-.fail(function() {
-			console.log("error getting coordinates");
-})
-.done(function( data ) {
-	console.log("coordinates saved ajax worked", data);
-	data.forEach(function(location, index){ //run for each loop through the data stored i.e. cordinates so dont need geocode
-		var marker = new google.maps.Marker({
-			map: map,
-			position: location.coordinate //taking the location.coordinate position from database
-		});
-	});
-});
+	postPins();
 	
-	var mcOptions = {gridSize: 50, maxZoom: 15};
-	mc = new MarkerClusterer(map, [], mcOptions);
-	console.log('THIS IS THE MC', mc);
 };
 
+var postPins = function() {
 
+	$.ajax({
+		url: "/postlocation",
+		method: "GET"
+	})
+	.fail(function() {
+				console.log("error getting coordinates");
+	})
+	.done(function( data ) {
+		console.log("coordinates saved ajax worked", data);
+		data.forEach(function(location, index){ //run for each loop through the data stored i.e. cordinates so dont need geocode
+			var marker = new google.maps.Marker({
+				map: map,
+				position: location.coordinate //taking the location.coordinate position from database
+			});
+			markers.push(marker);
+		});
+		var options = {
+	    imagePath: 'images/m'
+	  };
+		mc = new MarkerClusterer(map, markers, options);
+	});	
+} 
 
 $(function() {
 		console.log("jQuery document ready");
