@@ -71,7 +71,6 @@ function success(pos){
 		payment();
 		geocodeAddress(geocoder, map);
 		console.log(latLng);
-		console.log("we are here?????");
 
 		$.ajax({
 		url: "/location",
@@ -102,39 +101,40 @@ function initMap() {
 	getLocation();
 	var geocoder = new google.maps.Geocoder();
 
-	// postPins();
+	postPins();
+
 	
 };
 
-// var postPins = function() {
+var postPins = function() {
 
-// 	$.ajax({
-// 		url: "/postlocation",
-// 		method: "GET"
-// 	})
-// 	.fail(function() {
-// 				console.log("error getting coordinates");
-// 	})
-// 	.done(function( data ) {
-// 		console.log("coordinates saved ajax worked", data);
-// 		data.forEach(function(location, index){ //run for each loop through the data stored i.e. cordinates so dont need geocode
-// 			var marker = new google.maps.Marker({
-// 				map: map,
-// 				position: location.coordinate //taking the location.coordinate position from database
-// 			});
-// 			markers.push(marker);
-// 		});
-// 		var options = {
-// 	    imagePath: 'images/m'
-// 	  };
-// 		mc = new MarkerClusterer(map, markers, options);
-// 	});	
-// } 
+	$.ajax({
+		url: "/postlocation",
+		method: "GET"
+	})
+	.fail(function() {
+				console.log("error getting coordinates");
+	})
+	.done(function( data ) {
+		console.log("coordinates saved ajax worked", data);
+		data.forEach(function(location, index){ //run for each loop through the data stored i.e. cordinates so dont need geocode
+			var marker = new google.maps.Marker({
+				map: map,
+				position: location.coordinate //taking the location.coordinate position from database
+			});
+			markers.push(marker);
+		});
+		var options = {
+	    imagePath: 'images/m'
+	  };
+		mc = new MarkerClusterer(map, markers, options);
+	});	
+} 
 
 var payment = function() {
 	swal({
-	  title: "An input!",
-	  text: "Write something interesting:",
+	  title: "Please pay!",
+	  text: "im going to take all youre money:",
 	  type: "input",
 	  showCancelButton: true,
 	  closeOnConfirm: false,
@@ -145,9 +145,10 @@ var payment = function() {
 	    swal.showInputError("You need to write something!");
 	    return false
 	  }
-	  swal("Nice!", "You wrote: " + inputValue, "success");
+	  swal("THanks!", "You wrote: " + inputValue, "success");
 	});
-}
+	}
+
 $(function() {
 		console.log("jQuery document ready");
 });

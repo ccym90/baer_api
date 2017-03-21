@@ -22,24 +22,4 @@ $(document).ready(function() {
 
 });
 
-// $(function() {
-// 	var button = $("#addbasket");
-//   	checkoutButton = $("#checkout");
-//   	button.on("click",function(e) {
-//     checkoutButton.prop("disabled",false); // NOT a toggle
-//   		});
-// 	});
-
-// checkout sotres location in database 
-
-// $('#checkout').on('click', function(event){
-// 	console.log("Checkout button clicked")
-// });
-
-
-// pulls data onto map
-
-
-
-
 //total cost 
