@@ -23,15 +23,25 @@ html, body {
 	padding: 0;
 }
 
-scroll {
+.navbar-inverse {
+    border-color: #030033;
+}
+
+#home {
+	padding: 3%;
+	margin-top: 100px;
+}
+.scroll {
 	position: relative;
 }
+
 #space {
-	text-align: right;
+	height: 200px;
 
 }
 
 #homelogo {
+	display: block;
 	right: 30px;
 	padding-top:55px;
 	text-align: right;
@@ -52,6 +62,7 @@ scroll {
   	bottom: 0;
 }
 
+#
 
 img {
 	vertical-align: middle;
@@ -96,25 +107,6 @@ img {
 	display: inline-block;
 	position: relative;
 }
-/*#checkout { 
-	visibility: hidden;
-
-	 }*/
-
-
-/*#floating-panel {
-				top: 10px;
-				left: 65%;
-				z-index: 5;
-				height:90%;
-				background-color: #fff;
-				padding: 5px;
-				border: 1px solid #999;
-				text-align: center;
-				font-family: 'Roboto','sans-serif';
-				line-height: 30px;
-				padding-left: 10px;
-			 }*/
 
 /****************************
 ***          LOGIN PAGE

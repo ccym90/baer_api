@@ -52,7 +52,7 @@ require('./passport/facebook')(passport);
 require('./passport/instagram')(passport);
 require('./passport/google')(passport);
 
-//import routes
+//import routes for ajax
 app.use('/', index); //gets the root of index
 app.use('/location', coor); //gets the root of /location 
 app.use('/postlocation', postlocation);

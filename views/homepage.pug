@@ -17,17 +17,13 @@ block content
           a(href='#basket')
            span.glyphicon.glyphicon-shopping-cart
               |  Basket
-        li
-          a(href='#logout')
-            span.glyphicon.glyphicon-log-in
-            |  Logout
-  .row#space(style='background-color:blue; height: 200px')
+  .row#space
+    .col-xs-9
     .col-xs-3
-      img#homelogo(src='./images/lo.png')
-  
+      img#homelogo.pull-right.img-responsive(src='./images/lo.png')
   body(data-spy='scroll' data-target='.navbar' data-offset='5000')
-  .container(style='background-color:yellow ; margin-top:30px;')
-    .row#home(style='background-color:red; margin-top:100px;')
+  .container
+    .row#home
       each k in products
         .col-xs-4
           .thumbnail

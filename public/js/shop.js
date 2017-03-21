@@ -13,12 +13,10 @@ $(document).ready(function() {
 		console.log('have we lost you?', buttonlessItem);
 
 		buttonlessItem.appendTo('#itemsbrought');
-
 	
 	});
 
 	$('.navbar').onePageNav();
-
 
 });
 
