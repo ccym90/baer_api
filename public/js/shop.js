@@ -2,6 +2,7 @@
 $(document).ready(function() {
     console.log("jQuery document ready");
 
+	
 	$('.products').click(function(e){
 		 var target = e.target;
 		 console.log(target);
@@ -16,10 +17,18 @@ $(document).ready(function() {
 	
 	});
 
+
 	$('.navbar').onePageNav();
 
 });
 
+// $(function() {
+// 	var button = $("#addbasket");
+//   	checkoutButton = $("#checkout");
+//   	button.on("click",function(e) {
+//     checkoutButton.prop("disabled",false); // NOT a toggle
+//   		});
+// 	});
 
 // checkout sotres location in database 
 

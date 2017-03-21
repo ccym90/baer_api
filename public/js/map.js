@@ -68,6 +68,7 @@ function success(pos){
 	$('#checkout').click(function(e){
 		e.preventDefault();
 		alert("Thank you for your purchase!");
+		payment();
 		geocodeAddress(geocoder, map);
 		console.log(latLng);
 		console.log("we are here?????");
@@ -101,35 +102,52 @@ function initMap() {
 	getLocation();
 	var geocoder = new google.maps.Geocoder();
 
-	postPins();
+	// postPins();
 	
 };
 
-var postPins = function() {
+// var postPins = function() {
 
-	$.ajax({
-		url: "/postlocation",
-		method: "GET"
-	})
-	.fail(function() {
-				console.log("error getting coordinates");
-	})
-	.done(function( data ) {
-		console.log("coordinates saved ajax worked", data);
-		data.forEach(function(location, index){ //run for each loop through the data stored i.e. cordinates so dont need geocode
-			var marker = new google.maps.Marker({
-				map: map,
-				position: location.coordinate //taking the location.coordinate position from database
-			});
-			markers.push(marker);
-		});
-		var options = {
-	    imagePath: 'images/m'
-	  };
-		mc = new MarkerClusterer(map, markers, options);
-	});	
-} 
+// 	$.ajax({
+// 		url: "/postlocation",
+// 		method: "GET"
+// 	})
+// 	.fail(function() {
+// 				console.log("error getting coordinates");
+// 	})
+// 	.done(function( data ) {
+// 		console.log("coordinates saved ajax worked", data);
+// 		data.forEach(function(location, index){ //run for each loop through the data stored i.e. cordinates so dont need geocode
+// 			var marker = new google.maps.Marker({
+// 				map: map,
+// 				position: location.coordinate //taking the location.coordinate position from database
+// 			});
+// 			markers.push(marker);
+// 		});
+// 		var options = {
+// 	    imagePath: 'images/m'
+// 	  };
+// 		mc = new MarkerClusterer(map, markers, options);
+// 	});	
+// } 
 
+var payment = function() {
+	swal({
+	  title: "An input!",
+	  text: "Write something interesting:",
+	  type: "input",
+	  showCancelButton: true,
+	  closeOnConfirm: false,
+	  inputPlaceholder: "Write something"
+	}, function (inputValue) {
+	  if (inputValue === false) return false;
+	  if (inputValue === "") {
+	    swal.showInputError("You need to write something!");
+	    return false
+	  }
+	  swal("Nice!", "You wrote: " + inputValue, "success");
+	});
+}
 $(function() {
 		console.log("jQuery document ready");
 });
